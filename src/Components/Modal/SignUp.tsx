@@ -2,17 +2,32 @@ import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/AuthModalAtom";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/clientApp";
 
 type SignUpProps = {};
 
 const SignUp: React.FC<SignUpProps> = () => {
+  const [error, setError] = useState("");
+  const [createUserWithEmailAndPassword, user, loading, userError] =
+    useCreateUserWithEmailAndPassword(auth);
+
   const [signUpForm, setSingUpForm] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
   const setAuthModalState = useSetRecoilState(authModalState);
-  const onSubmit = () => {};
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (error) setError("");
+    if (signUpForm.password !== signUpForm.confirmPassword) {
+      setError("Both Password doesn't match");
+    }
+    createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+  };
+
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSingUpForm((prev: any) => ({
       ...prev,
@@ -20,8 +35,9 @@ const SignUp: React.FC<SignUpProps> = () => {
     }));
   };
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <Input
+        required
         type="email"
         placeholder="Email"
         mb={2}
@@ -43,6 +59,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         bg="gray.100"
       />
       <Input
+        required
         type="password"
         placeholder="Password"
         mb={2}
@@ -64,6 +81,7 @@ const SignUp: React.FC<SignUpProps> = () => {
         bg="gray.100"
       />
       <Input
+        required
         type="password"
         placeholder="Confirm Password"
         mb={2}
@@ -84,7 +102,20 @@ const SignUp: React.FC<SignUpProps> = () => {
         }}
         bg="gray.100"
       />
-      <Button width="100%" height="36px" mt={2} mb={2} type="submit">
+      {error && (
+        <Text align="center" fontSize="10pt" color="red">
+          {" "}
+          {error}
+        </Text>
+      )}
+      <Button
+        width="100%"
+        height="36px"
+        mt={2}
+        mb={2}
+        type="submit"
+        isLoading={loading}
+      >
         Sign Up
       </Button>
       <Flex fontSize="9pt" justifyContent="center">
