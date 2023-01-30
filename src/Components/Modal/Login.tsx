@@ -1,9 +1,13 @@
-import { Input } from "@chakra-ui/react";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { authModalState } from "@/atoms/AuthModalAtom";
+import { useSetRecoilState } from "recoil";
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
+  const setAuthModalState = useSetRecoilState(authModalState);
+
   const [loginForm, setLoginForm] = useState({
     email: "",
     password: "",
@@ -59,6 +63,25 @@ const Login: React.FC<LoginProps> = () => {
         }}
         bg="gray.100"
       />
+      <Button width="100%" height="36px" mt={2} mb={2} type="submit">
+        Log in
+      </Button>
+      <Flex fontSize="9pt" justifyContent="center">
+        <Text mr={1}> New Here</Text>
+        <Text
+          color="blue.500"
+          fontWeight={700}
+          cursor="pointer"
+          onClick={() => {
+            setAuthModalState((prev) => ({
+              ...prev,
+              view: "signup",
+            }));
+          }}
+        >
+          Sign Up
+        </Text>
+      </Flex>
     </form>
   );
 };
