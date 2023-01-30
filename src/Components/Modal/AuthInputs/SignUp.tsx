@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/AuthModalAtom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/clientApp";
-import { FIREBASE_ERRORS } from "./../../firebase/error";
+import { auth } from "../../../firebase/clientApp";
+import { FIREBASE_ERRORS } from "../../../firebase/error";
 
 type SignUpProps = {};
 
