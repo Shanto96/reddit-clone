@@ -4,6 +4,7 @@ import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/atoms/AuthModalAtom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
+import { FIREBASE_ERRORS } from "./../../firebase/error";
 
 type SignUpProps = {};
 
@@ -24,6 +25,7 @@ const SignUp: React.FC<SignUpProps> = () => {
     if (error) setError("");
     if (signUpForm.password !== signUpForm.confirmPassword) {
       setError("Both Password doesn't match");
+      return;
     }
     createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
   };
@@ -102,12 +104,16 @@ const SignUp: React.FC<SignUpProps> = () => {
         }}
         bg="gray.100"
       />
-      {error && (
-        <Text align="center" fontSize="10pt" color="red">
-          {" "}
-          {error}
-        </Text>
-      )}
+      {error ||
+        (userError && (
+          <Text align="center" fontSize="10pt" color="red">
+            {" "}
+            {error ||
+              FIREBASE_ERRORS[
+                userError.message as keyof typeof FIREBASE_ERRORS
+              ]}
+          </Text>
+        ))}
       <Button
         width="100%"
         height="36px"
