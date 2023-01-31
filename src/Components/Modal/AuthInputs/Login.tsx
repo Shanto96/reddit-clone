@@ -87,6 +87,22 @@ const Login: React.FC<LoginProps> = () => {
       >
         Log in
       </Button>
+      <Flex fontSize="8pt" justifyContent="center">
+        <Text mr={1}> Forget Your password</Text>
+        <Text
+          color="blue.500"
+          fontWeight={500}
+          cursor="pointer"
+          onClick={() => {
+            setAuthModalState((prev) => ({
+              ...prev,
+              view: "resetPassword",
+            }));
+          }}
+        >
+          Reset
+        </Text>
+      </Flex>{" "}
       <Flex fontSize="9pt" justifyContent="center">
         <Text mr={1}> New Here</Text>
         <Text
