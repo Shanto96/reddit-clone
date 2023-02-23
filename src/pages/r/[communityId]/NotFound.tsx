@@ -9,6 +9,7 @@ const NotFound: React.FC = () => {
       alignContent="center"
       alignItems="center"
       minHeight="60vh"
+      justifyContent="center"
     >
       Sorry that community doesn't exist or has been banned
       <Link href="/">
