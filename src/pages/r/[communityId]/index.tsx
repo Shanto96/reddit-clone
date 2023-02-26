@@ -5,6 +5,8 @@ import { Community } from "../../../atoms/CommunityAtom";
 import React from "react";
 import safeJsonStringify from "safe-json-stringify";
 import NotFound from "./NotFound";
+import Header from "./Header";
+import PageContent from "@/Components/Layouts/PageContent";
 
 type CommunityPageProps = {
   communityData: Community;
@@ -16,7 +18,16 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
   if (!communityData) {
     return <NotFound />;
   }
-  return <div>Wellcome to community {communityData?.id}</div>;
+  return (
+    <>
+      <Header communityData={communityData} />
+
+      <PageContent>
+        {" "}
+        <div className=""> LHS</div> <div className=""> RHS</div>{" "}
+      </PageContent>
+    </>
+  );
 };
 export default CommunityPage;
 
