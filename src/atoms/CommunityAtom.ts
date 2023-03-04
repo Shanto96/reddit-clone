@@ -11,13 +11,13 @@ export interface Community {
   imageURL: string;
 }
 
-interface CommunitySnippet {
+export interface CommunitySnippet {
   CommunityId: string;
   isModerator?: boolean;
   imageURL?: string;
 }
 
-interface CommunityState {
+export interface CommunityState {
   mySnippets: CommunitySnippet[];
 }
 

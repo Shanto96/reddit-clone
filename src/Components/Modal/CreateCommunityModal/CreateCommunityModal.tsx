@@ -32,19 +32,22 @@ import { HiLockClosed } from "react-icons/hi";
 type CreateCommunityModalProps = {
   open: boolean;
   handleClose: () => void;
+  userId: string;
 };
 
 const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   open,
   handleClose,
+  userId,
 }) => {
   const [user] = useAuthState(auth);
-
+  console.log(user);
   const [communityName, setCommunityName] = useState("");
   const [remainingCharecter, setRemainingCharecter] = useState(21);
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  console.log("user id is", userId);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
@@ -67,7 +70,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
       return;
     }
     //Checking the name already exists or not
-
+    console.log("user id is", user?.uid);
     setLoading(true);
     try {
       const communityDocRef = doc(firestore, "communities", communityName);
@@ -86,8 +89,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
           privacyType: communityType,
         });
 
+        console.log("Name", communityName);
         transaction.set(
-          doc(firestore, `users/${user?.uid}/communitySnippets`, communityName),
+          doc(firestore, `users/${userId}/communitySnippets`, communityName),
           {
             communityId: communityName,
             isModerator: true,
