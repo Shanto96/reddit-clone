@@ -41,7 +41,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   userId,
 }) => {
   const [user] = useAuthState(auth);
-  console.log(user);
+
   const [communityName, setCommunityName] = useState("");
   const [remainingCharecter, setRemainingCharecter] = useState(21);
   const [communityType, setCommunityType] = useState("public");
