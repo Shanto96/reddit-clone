@@ -58,7 +58,6 @@ const TextInputs: React.FC<TextInputsProps> = ({
           padding="0px 30px"
           disabled={false}
           onClick={() => {}}
-          disabled={textInputs.title =  == ""}
         >
           Post
         </Button>

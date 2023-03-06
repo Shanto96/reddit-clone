@@ -69,7 +69,13 @@ const CreatePost: React.FC<CreatePostProps> = () => {
     };
   };
 
-  const handleCreatePost = async () => {};
+  const handleCreatePost = async () => {
+    //Create new post object => type post
+    //store the post in Db
+    //Check for selected file
+    //store in storage => get downloadURL(return image URL)
+    //redirect back to the community page
+  };
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
       <Flex width="100%">
